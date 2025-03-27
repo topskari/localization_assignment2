@@ -4,6 +4,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -12,7 +14,10 @@ import java.util.ResourceBundle;
 public class HelloController {
 
     @FXML
-    Label lblDistance, lblFuel, lblResult;
+    Label lblDistance, lblFuel;
+
+    @FXML
+    Text lblResultText;
 
     @FXML
     TextField txtDistance, txtFuel;
@@ -29,7 +34,6 @@ public class HelloController {
     Locale localeIR;
 
     ResourceBundle rb;
-
 
     public HelloController() {
         this.localeEN = new Locale("en", "US");
@@ -49,7 +53,7 @@ public class HelloController {
             String fuel = txtFuel.getText();
 
             if (distance.isEmpty() || fuel.isEmpty() || distance.equals("0") || fuel.equals("0")) {
-                lblResult.setText(rb.getString("invalid"));
+                lblResultText.setText(rb.getString("invalid"));
                 return;
             }
 
@@ -58,10 +62,10 @@ public class HelloController {
                 double fuelValue = Double.parseDouble(fuel);
                 double result = (fuelValue / distanceValue) * 100;
                 String formattedResult = MessageFormat.format(rb.getString("result"), result);
-                lblResult.setText(formattedResult);
+                lblResultText.setText(formattedResult);
 
             } catch (Exception e) {
-                lblResult.setText(rb.getString("invalid"));
+                lblResultText.setText(rb.getString("invalid"));
             }
         });
 
@@ -92,7 +96,7 @@ public class HelloController {
 
     public void setLanguage() {
 
-        lblResult.setText("");
+        lblResultText.setText("");
         lblDistance.setText(rb.getString("distance"));
         lblFuel.setText(rb.getString("fuel"));
         btnCalculate.setText(rb.getString("calculate"));
